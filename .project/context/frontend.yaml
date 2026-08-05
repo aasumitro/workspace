@@ -1,0 +1,13 @@
+# frontend.yaml — context profile for frontend/UI work
+# Format and usage: .project/context/README.md
+# Paths are relative to .project/knowledge/. Rename or edit once real surfaces
+# are named in MANIFEST.yaml; delete if this project has no frontend surface.
+
+required:
+  - architecture/frontend.md
+  - conventions/user-interface.md
+  - conventions/user-experience.md
+
+optional:
+  - conventions/testing.md
+  - coding/ts/README.md

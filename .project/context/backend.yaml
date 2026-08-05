@@ -1,0 +1,14 @@
+# backend.yaml — context profile for backend/API work
+# Format and usage: .project/context/README.md
+# Paths are relative to .project/knowledge/. Rename or edit once real surfaces
+# are named in MANIFEST.yaml; delete if this project has no backend surface.
+
+required:
+  - architecture/backend.md
+  - conventions/api.md
+  - conventions/database.md
+
+optional:
+  - conventions/security.md
+  - conventions/testing.md
+  - coding/go/README.md

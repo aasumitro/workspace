@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# Workspace pre-commit hook — installed by .project/scripts/install-hooks.py
+#
+# Runs the same check.py every agent session is told to run before calling work
+# done, so it also runs at the one point a human actually ships something: the
+# commit. AGENTS.md rule 1 ("agents never commit") is a documented convention with
+# nothing behind it; this hook is the one technical backstop this workspace has —
+# it can't stop an agent from running `git commit` if it decides to ignore the
+# rule, but it can stop a broken workspace (out-of-sync core rules, an unfilled
+# MANIFEST.yaml claiming adopted: true, a task with a decision left in it) from
+# ever landing, regardless of who typed the command.
+# CHECK_PY is filled in by install-hooks.py at install time with the absolute path
+# to this workspace's check.py — not derived from `git rev-parse --show-toplevel`,
+# because this hook may be installed into code/<name>'s own repo, a different repo
+# from the workspace that actually holds .project/scripts/check.py.
+CHECK_PY="{{CHECK_PY}}"
+
+set -euo pipefail
+
+echo "workspace: running $(basename "$CHECK_PY") before commit..."
+if ! python3 "$CHECK_PY"; then
+    echo
+    echo "workspace: commit blocked — check.py found problems (see above)."
+    echo "         fix them, or run with --no-verify if you are certain this commit"
+    echo "         should go through anyway (not recommended)."
+    exit 1
+fi

@@ -1,0 +1,56 @@
+# MANIFEST.yaml — machine-readable facts about this workspace.
+#
+# FACTS ONLY. Paths, commands, names — things an agent or a script looks up.
+# Rules live in AGENTS.md and are never duplicated here.
+#
+# Replace every {{placeholder}} when adopting a project, then set adopted: true.
+
+workspace:
+  name: "{{project-name}}"
+  version: 3
+  adopted: false                     # false = knowledge/ is still authoring guides, not project truth
+  description: >
+    {{One sentence: what the product is and what stack it runs on.}}
+
+# Where the code lives. Clone repositories into code/.
+repos:
+  - name: "{{repo-name}}"
+    path: "code/{{repo-name}}"
+    remote: "{{github.com/org/repo}}"
+    default_branch: "{{main}}"
+    env_files: ["{{.env.local}}"]    # gitignored credential files
+    surfaces:
+      # one entry per deployable/buildable surface; doc = its knowledge/architecture/ file
+      "{{backend}}": { paths: ["{{cmd/, internal/}}"], doc: .project/knowledge/architecture/backend.md }
+      "{{web}}":     { paths: ["{{ui/app/}}"],         doc: .project/knowledge/architecture/frontend.md }
+
+# The exact commands CI runs, per surface. Run these before calling work done (AGENTS.md §7).
+checks:
+  "{{backend}}":
+    - "{{go vet ./...}}"
+    - "{{golangci-lint run ./...}}"
+    - "{{go test ./... -race -count=1}}"
+  "{{web}}":
+    - "{{npm run typecheck}}"
+    - "{{npm run lint}}"
+    - "{{npm run build}}"
+
+# Workspace tooling.
+scripts:
+  new_doc: python .project/scripts/new-doc.py <plan|task|review|report> "<title>"
+  check:   python .project/scripts/check.py
+
+# Stable paths, so nothing has to guess.
+paths:
+  manual: AGENTS.md
+  commit_handoff: COMMIT.md
+  roles: .project/roles
+  knowledge: .project/knowledge
+  context: .project/context
+  memory: .project/memory
+  templates: .project/templates
+  prompts: .project/PROMPTS.md
+  work: .project/work
+  state: .project/work/STATE.md
+  active: .project/work/active
+  archive: .project/work/archive

@@ -1,0 +1,6 @@
+.idea
+.DS_Store
+
+# the codebase(s) live here but belong to their own repos
+code/*
+!code/README.md
