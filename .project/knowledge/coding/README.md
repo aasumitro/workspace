@@ -12,6 +12,7 @@ per-project rules layer on top in `../conventions/`.
 | `ts/` | TypeScript | **TS 6 / 7** (native compiler era) | README + 7 guides (version-gated `modern-syntax` 4.9→7, patterns, types, errors, async, testing, tooling & 6→7 migration, pitfalls) |
 | `sql/` | SQL | **PostgreSQL 18 · SQLite 3** (3.35+ baseline) | README + 8 guides (style, schema design, query patterns, indexing, migrations, postgresql, sqlite, pitfalls) |
 | `mongodb/` | MongoDB | **MongoDB 8.x** (7.0 floor) | README + 10 guides (MQL, schema design, indexing, aggregation, transactions, query patterns, repository patterns, performance, production, pitfalls) |
+| `tw/` | Tailwind CSS |  **v4.3** | README + 6 guides (modern-syntax, variants & states, patterns, best practices, tooling & migration, pitfalls) |
 
 ## Shared conventions across all guides
 
